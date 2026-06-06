@@ -32,7 +32,7 @@ body{font-family:'Nunito',sans-serif;background:var(--sky);min-height:100vh;
    READY SCREEN — MEGA REDESIGN
 ══════════════════════════════════════ */
 .ready-screen{
-  position:fixed;inset:0;z-index:100;overflow:hidden;
+  position:fixed;inset:0;z-index:500;overflow:hidden;
   background:linear-gradient(170deg,#0a0f2e 0%,#0d1b4b 30%,#0f2d6b 65%,#1a3a8a 100%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:0;
@@ -536,6 +536,148 @@ a.btn-restart{text-decoration:none}
 .school-footer{position:relative;z-index:9;width:100%;background:linear-gradient(135deg,#1e3a8a,#2563eb);padding:14px 24px;text-align:center;margin-top:auto;border-top:4px solid #FFD93D;}
 .school-footer p{font-size:0.75rem;color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:0.05em}
 @media(max-width:480px){.f-stats{gap:8px}.f-stat{padding:10px 10px}.revision-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}.reaction-face{width:80px;height:80px}.reaction-label{font-size:0.8rem;padding:4px 10px}}
+
+/* ══════════════════════════════════════
+   MODE SCREEN
+══════════════════════════════════════ */
+.mode-screen{
+  position:fixed;inset:0;z-index:490;overflow:hidden;
+  background:linear-gradient(170deg,#0a0f2e 0%,#0d1b4b 30%,#0f2d6b 65%,#1a3a8a 100%);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+}
+.mode-screen.active{display:flex}
+.mode-screen.hiding{animation:readyHide 0.6s cubic-bezier(0.4,0,0.6,1) both}
+
+.mode-title{
+  font-family:'Fredoka One',cursive;font-size:1.6rem;color:#fff;
+  text-align:center;letter-spacing:0.04em;
+  animation:pillDrop 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;
+}
+.mode-title span{
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.mode-cards{
+  display:flex;gap:20px;flex-wrap:wrap;justify-content:center;
+  animation:ctaRise 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+}
+
+.mode-card{
+  background:rgba(255,255,255,0.07);
+  border:2.5px solid rgba(255,255,255,0.18);
+  backdrop-filter:blur(14px);
+  border-radius:28px;padding:28px 24px;
+  width:220px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  transition:all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative;overflow:hidden;
+}
+.mode-card::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);
+  pointer-events:none;
+}
+.mode-card:hover{
+  transform:translateY(-10px) scale(1.04);
+  border-color:rgba(255,255,255,0.45);
+  background:rgba(255,255,255,0.13);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.mode-card.selected{
+  border-color:#fbbf24;
+  background:rgba(251,191,36,0.12);
+  box-shadow:0 0 0 3px rgba(251,191,36,0.3),0 20px 60px rgba(0,0,0,0.4);
+}
+.mode-card-icon{font-size:52px;line-height:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+.mode-card-title{
+  font-family:'Fredoka One',cursive;font-size:1.2rem;color:#fff;
+  text-align:center;letter-spacing:0.02em;
+}
+.mode-card-desc{
+  font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.6);
+  text-align:center;line-height:1.5;
+}
+
+/* Timer input panel */
+.mode-timer-panel{
+  display:none;
+  flex-direction:column;align-items:center;gap:12px;
+  animation:ctaRise 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  background:rgba(255,255,255,0.07);border:2px solid rgba(255,255,255,0.18);
+  backdrop-filter:blur(14px);border-radius:24px;padding:20px 28px;
+  width:100%;max-width:340px;
+}
+.mode-timer-panel.visible{display:flex}
+.mode-timer-label{
+  font-family:'Fredoka One',cursive;font-size:1rem;color:#fff;letter-spacing:0.03em;
+}
+.mode-timer-label span{color:#fbbf24}
+.mode-timer-row{display:flex;gap:10px;align-items:center;width:100%}
+.mode-timer-input{
+  flex:1;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.25);
+  border-radius:14px;padding:12px 16px;
+  font-family:'Fredoka One',cursive;font-size:1.2rem;color:#fff;
+  text-align:center;outline:none;
+  transition:border-color 0.2s;
+}
+.mode-timer-input::placeholder{color:rgba(255,255,255,0.35)}
+.mode-timer-input:focus{border-color:#fbbf24}
+.mode-timer-presets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.mode-preset{
+  background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);
+  border-radius:20px;padding:6px 14px;cursor:pointer;
+  font-family:'Fredoka One',cursive;font-size:0.82rem;color:rgba(255,255,255,0.8);
+  transition:all 0.2s;
+}
+.mode-preset:hover{background:rgba(251,191,36,0.2);border-color:#fbbf24;color:#fbbf24}
+.mode-preset.active{background:rgba(251,191,36,0.25);border-color:#fbbf24;color:#fbbf24}
+
+/* Confirm button */
+.mode-confirm-btn{
+  font-family:'Fredoka One',cursive;font-size:1.2rem;color:#1a0a00;
+  background:linear-gradient(145deg,#fde68a 0%,#fbbf24 35%,#f59e0b 65%,#d97706 100%);
+  border:none;border-radius:60px;padding:16px 48px;cursor:pointer;
+  box-shadow:0 7px 0 #92400e,0 14px 36px rgba(245,158,11,0.45),inset 0 2px 0 rgba(255,255,255,0.4);
+  transition:all 0.15s;display:flex;align-items:center;gap:12px;letter-spacing:0.04em;
+  animation:ctaRise 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.35s both;
+}
+.mode-confirm-btn:hover{transform:translateY(-5px);box-shadow:0 12px 0 #92400e,0 22px 48px rgba(245,158,11,0.6),inset 0 2px 0 rgba(255,255,255,0.4)}
+.mode-confirm-btn:active{transform:translateY(2px);box-shadow:0 4px 0 #92400e}
+
+/* ── TIMER BAR (in-game) ── */
+.timer-bar-wrap{
+  display:none;
+  position:relative;z-index:9;
+  width:100%;max-width:480px;
+  padding:0 20px;margin-top:-6px;margin-bottom:2px;
+}
+.timer-bar-wrap.active{display:block}
+.timer-bar-track{
+  height:10px;background:rgba(0,0,0,0.08);border-radius:10px;overflow:hidden;
+  border:1.5px solid #e2e8f0;
+}
+.timer-bar-fill{
+  height:100%;border-radius:10px;
+  background:linear-gradient(90deg,#10b981,#3b82f6);
+  transition:width 0.1s linear;
+  position:relative;
+}
+.timer-bar-fill::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);
+  animation:progShimmer 1.8s ease-in-out infinite;
+}
+.timer-bar-fill.warning{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.timer-label-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:3px;
+}
+.timer-secs{
+  font-family:'Fredoka One',cursive;font-size:0.82rem;color:var(--muted);
+}
+.timer-secs.warning{color:#ef4444}
+
 </style>
 </head>
 <body>
@@ -692,15 +834,58 @@ a.btn-restart{text-decoration:none}
 
   <!-- CTA area -->
   <div class="ready-cta">
-    <button class="ready-btn" id="readyBtn" onclick="startGame()">
+    <button class="ready-btn" id="readyBtn" onclick="showModeScreen()">
       <span class="btn-rocket">🚀</span>
-      C'est parti !
+      Choisir le mode !
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#1a0a00" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="ready-count" id="readyCount">0 images à découvrir</div>
   </div>
 
 </div>
+
+<!-- ══ MODE SCREEN ══ -->
+<div class="mode-screen" id="modeScreen">
+  <!-- reuse same sky background feel via CSS gradient -->
+  <div class="mode-title">Choisis ton <span>mode de jeu</span> 🎮</div>
+
+  <div class="mode-cards">
+    <!-- Card 1: sans temps -->
+    <div class="mode-card selected" id="modeCardFree" onclick="selectMode('free')">
+      <div class="mode-card-icon">🖱️</div>
+      <div class="mode-card-title">Sans chrono</div>
+      <div class="mode-card-desc">Tu cliques toi-même pour passer à l'image suivante. Prends ton temps !</div>
+    </div>
+    <!-- Card 2: avec temps -->
+    <div class="mode-card" id="modeCardTimer" onclick="selectMode('timer')">
+      <div class="mode-card-icon">⏱️</div>
+      <div class="mode-card-title">Avec chrono</div>
+      <div class="mode-card-desc">Chaque image passe automatiquement après le temps choisi.</div>
+    </div>
+  </div>
+
+  <!-- Timer config panel (hidden until timer mode selected) -->
+  <div class="mode-timer-panel" id="modeTimerPanel">
+    <div class="mode-timer-label">Temps par image : <span id="timerDisplayLabel">3000</span> ms</div>
+    <div class="mode-timer-row">
+      <input class="mode-timer-input" type="number" id="timerInput" value="3000" min="500" max="30000" step="500" placeholder="ex: 3000" oninput="updateTimerLabel()">
+    </div>
+    <div class="mode-timer-presets">
+      <div class="mode-preset" onclick="setPreset(1000)">1 s</div>
+      <div class="mode-preset" onclick="setPreset(2000)">2 s</div>
+      <div class="mode-preset active" onclick="setPreset(3000)">3 s</div>
+      <div class="mode-preset" onclick="setPreset(5000)">5 s</div>
+      <div class="mode-preset" onclick="setPreset(8000)">8 s</div>
+      <div class="mode-preset" onclick="setPreset(10000)">10 s</div>
+    </div>
+  </div>
+
+  <button class="mode-confirm-btn" onclick="confirmMode()">
+    <span>🚀</span> C'est parti !
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#1a0a00" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
 
 <!-- ══ REACTIONS ══ -->
 <div class="reaction happy left" id="reactHappyLeft" style="display:none">
@@ -831,10 +1016,22 @@ a.btn-restart{text-decoration:none}
   <div class="sc ko"><svg class="ico" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><path d="M9 9L19 19M19 9L9 19" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/></svg><div style="display:flex;flex-direction:column;gap:1px"><span class="lbl">Pas encore</span><span class="num" id="numKo">0</span></div></div>
 </div>
 
-<div class="star-counter" id="starCounter"></div>
+<div class="star-counter" id="starCounter" style="display:none"></div>
+
+<!-- Timer bar (only visible in timer mode) -->
+<div class="timer-bar-wrap" id="timerBarWrap">
+  <div class="timer-bar-track">
+    <div class="timer-bar-fill" id="timerBarFill"></div>
+  </div>
+  <div class="timer-label-row">
+    <span class="timer-secs" id="timerSecsLabel">3.0 s</span>
+    <span style="font-size:0.75rem;font-weight:800;color:var(--muted)">⏱ Auto-passage</span>
+  </div>
+</div>
+
 
 <div class="stage">
-  <div class="img-card" id="imgCard" onclick="handleClick()">
+  <div class="img-card" id="imgCard" onclick="handleClick()" style="display:none">
     <svg class="card-deco tl" width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 4L20.5 12.5L29 15L20.5 17.5L18 26L15.5 17.5L7 15L15.5 12.5Z" fill="#fbbf24" opacity="0.7"/></svg>
     <svg class="card-deco br" width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="12" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/><path d="M15 8L16.5 12.5L21 14L16.5 15.5L15 20L13.5 15.5L9 14L13.5 12.5Z" fill="#3b82f6"/></svg>
     <img id="mainImg" src="" alt="vocabulaire">
@@ -863,7 +1060,7 @@ a.btn-restart{text-decoration:none}
   </div>
 </div>
 
-<div class="actions" id="actionsEl">
+<div class="actions" id="actionsEl" style="display:none">
   <button class="btn btn-correct" id="btnOk" onclick="marquerOk()" disabled>
     <svg class="btn-icon" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="rgba(255,255,255,0.25)"/><path d="M7 14L11 18L21 9" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Je sais !
@@ -967,6 +1164,13 @@ function litStars(n){
 
 // ── READY SCREEN ──
 function showReadyScreen(t){
+  // Hide game elements while on ready/mode screen
+  document.getElementById('imgCard').style.display='none';
+  document.getElementById('actionsEl').style.display='none';
+  document.getElementById('clickTip').style.display='none';
+  document.getElementById('themeBadge').style.display='none';
+  document.getElementById('starCounter').style.display='none';
+
   const list=(themes[t]||[]).filter(x=>x.trim()!=='');
   themeName=t;
   imgs=[...list]; shuffle(imgs); rem=[...imgs]; total=imgs.length; nOk=0; nKo=0; wrongImgs=[];
@@ -1190,6 +1394,170 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('topTheme').textContent=themeLabels[t]||t;
   showReadyScreen(t);
 });
+
+// ══ MODE SCREEN LOGIC ══
+let gameMode = 'free'; // 'free' or 'timer'
+let timerDurationMs = 3000;
+let autoTimer = null;
+
+function showModeScreen(){
+  const rs = document.getElementById('readyScreen');
+  // Show mode screen first (it's behind ready screen due to z-index)
+  document.getElementById('modeScreen').classList.add('active');
+  // Then animate ready screen out on top
+  rs.classList.add('hiding');
+  setTimeout(()=>{
+    rs.style.display='none';
+    rs.classList.remove('hiding');
+  }, 650);
+}
+
+function selectMode(mode){
+  gameMode = mode;
+  document.getElementById('modeCardFree').classList.toggle('selected', mode==='free');
+  document.getElementById('modeCardTimer').classList.toggle('selected', mode==='timer');
+  const panel = document.getElementById('modeTimerPanel');
+  panel.classList.toggle('visible', mode==='timer');
+}
+
+function updateTimerLabel(){
+  const val = parseInt(document.getElementById('timerInput').value)||3000;
+  document.getElementById('timerDisplayLabel').textContent = val;
+  // update presets active state
+  document.querySelectorAll('.mode-preset').forEach(p=>{
+    p.classList.toggle('active', parseInt(p.textContent)*1000===val||p.textContent.includes('s')&&parseFloat(p.textContent)*1000===val);
+  });
+}
+
+function setPreset(ms){
+  document.getElementById('timerInput').value = ms;
+  document.getElementById('timerDisplayLabel').textContent = ms;
+  timerDurationMs = ms;
+  document.querySelectorAll('.mode-preset').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function confirmMode(){
+  if(gameMode==='timer'){
+    timerDurationMs = parseInt(document.getElementById('timerInput').value)||3000;
+    if(timerDurationMs<500) timerDurationMs=500;
+  }
+  const ms = document.getElementById('modeScreen');
+  ms.classList.add('hiding');
+  setTimeout(()=>{
+    ms.classList.remove('active','hiding');
+    // Now show game elements and start
+    document.getElementById('imgCard').style.display='';
+    document.getElementById('actionsEl').style.display='';
+    document.getElementById('clickTip').style.display='';
+    document.getElementById('starCounter').style.display='flex';
+    startGame();
+  }, 500);
+}
+
+// ── Override showNext to support timer mode ──
+const _origShowNext = showNext;
+window.showNext = function(){
+  // clear any existing auto-timer
+  if(autoTimer){ clearTimeout(autoTimer); autoTimer=null; }
+  stopTimerBar();
+
+  if(rem.length===0){showFinish();return;}
+  const src=rem.pop();
+  const img=document.getElementById('mainImg');
+  const card=document.getElementById('imgCard');
+  img.src=src;
+  card.classList.remove('flip');
+  void card.offsetWidth;
+  card.classList.add('flip');
+
+  if(gameMode==='timer'){
+    // disable manual buttons in timer mode? No — keep them so teacher can still click
+    document.getElementById('btnOk').disabled=false;
+    document.getElementById('btnKo').disabled=false;
+    startTimerBar(timerDurationMs);
+    autoTimer = setTimeout(()=>{
+      // auto advance = mark as "pas encore" (wrong) if no action taken
+      // Actually: just advance without marking (neutral skip)
+      autoAdvance();
+    }, timerDurationMs);
+  } else {
+    document.getElementById('btnOk').disabled=false;
+    document.getElementById('btnKo').disabled=false;
+  }
+  update();
+};
+
+function autoAdvance(){
+  // In timer mode: if time runs out, mark as Ko automatically
+  autoTimer=null;
+  stopTimerBar();
+  wrongImgs.push(document.getElementById('mainImg').src);
+  nKo++;
+  const numEl=document.getElementById('numKo');
+  numEl.classList.remove('bump');void numEl.offsetWidth;numEl.classList.add('bump');
+  showReaction('angry');
+  flash('fr');
+  if(rem.length===0){showFinish();}else{window.showNext();}
+}
+
+// Timer bar
+let timerBarInterval = null;
+function startTimerBar(ms){
+  const wrap = document.getElementById('timerBarWrap');
+  const fill = document.getElementById('timerBarFill');
+  const label = document.getElementById('timerSecsLabel');
+  wrap.classList.add('active');
+  fill.classList.remove('warning');
+  fill.style.width='100%';
+  const start=Date.now();
+  timerBarInterval=setInterval(()=>{
+    const elapsed=Date.now()-start;
+    const pct=Math.max(0,100-(elapsed/ms*100));
+    fill.style.width=pct+'%';
+    const secs=((ms-elapsed)/1000).toFixed(1);
+    label.textContent=secs+' s';
+    label.classList.toggle('warning', pct<25);
+    fill.classList.toggle('warning', pct<25);
+    if(pct<=0) stopTimerBar();
+  },80);
+}
+function stopTimerBar(){
+  if(timerBarInterval){clearInterval(timerBarInterval);timerBarInterval=null;}
+  document.getElementById('timerBarWrap').classList.remove('active');
+}
+
+// Intercept marquerOk / marquerKo to clear timer
+const _origOk = marquerOk;
+window.marquerOk = function(){
+  if(autoTimer){clearTimeout(autoTimer);autoTimer=null;}
+  stopTimerBar();
+  nOk++;
+  const numEl=document.getElementById('numOk');
+  numEl.classList.remove('bump');void numEl.offsetWidth;numEl.classList.add('bump');
+  showReaction('happy');
+  flash('fg');
+  if(rem.length===0){showFinish();}else{window.showNext();}
+};
+const _origKo = marquerKo;
+window.marquerKo = function(){
+  if(autoTimer){clearTimeout(autoTimer);autoTimer=null;}
+  stopTimerBar();
+  const currentSrc=document.getElementById('mainImg').src;
+  wrongImgs.push(currentSrc);
+  nKo++;
+  const numEl=document.getElementById('numKo');
+  numEl.classList.remove('bump');void numEl.offsetWidth;numEl.classList.add('bump');
+  showReaction('angry');
+  flash('fr');
+  if(rem.length===0){showFinish();}else{window.showNext();}
+};
+
+// In timer mode, clicking the card should NOT auto-advance (keep original handleClick only for free mode)
+window.handleClick = function(){
+  if(gameMode==='free' && !document.getElementById('btnKo').disabled) marquerKo();
+};
+
 </script>
 
 <!-- GSAP + Snap.svg for student animation -->
