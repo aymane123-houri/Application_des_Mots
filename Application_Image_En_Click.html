@@ -134,6 +134,7 @@ body{font-family:'Nunito',sans-serif;background:var(--sky);min-height:100vh;
   60%{transform:translateY(-8px) rotate(-0.3deg)}
 }
 /* GSAP student sizing */
+.student{width:360px}
 .student svg#student{
   filter:drop-shadow(0 20px 48px rgba(0,0,0,0.5));
   overflow:visible;
@@ -682,82 +683,88 @@ a.btn-restart{text-decoration:none}
 /* ══════════════════════════════════════
    READY SCREEN — MOBILE RESPONSIVE
 ══════════════════════════════════════ */
-@media(max-width:520px){
+@media(max-width:600px){
 
-  /* Ready screen layout: stack vertically, tighter */
   .ready-screen{
-    gap:0;
-    justify-content:flex-start;
-    padding-top:12px;
+    gap:6px;
+    justify-content:center;
+    padding:10px 0 0;
+    overflow-x:hidden;
   }
 
-  /* Theme pill smaller */
   .ready-theme-pill{
-    font-size:0.88rem;
-    padding:8px 18px;
-    gap:7px;
+    font-size:0.85rem;
+    padding:7px 16px;
+    gap:6px;
   }
 
-  /* Scene: student centered, no side-by-side */
+  /* Stack bubble ON TOP of student, vertically */
   .ready-scene{
-    flex-direction:column;
+    flex-direction:column-reverse;
     align-items:center;
     gap:0;
     margin-top:0;
-    padding:0 8px;
+    padding:0;
+    width:100%;
+    overflow:visible;
   }
 
-  /* Speech bubble: full width, above student */
+  /* Bubble: full width centered, no tail */
   .ready-bubble{
-    max-width:92vw;
+    position:relative;
+    max-width:88vw;
     min-width:0;
-    padding:14px 16px;
-    margin-bottom:12px;
-    border-bottom-left-radius:24px;
-    border-bottom-right-radius:24px;
-    border-radius:22px;
+    width:88vw;
+    padding:12px 16px;
+    margin-bottom:0;
+    margin-top:8px;
+    border-radius:20px;
     align-self:center;
-    order:-1;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    order:2;
   }
-  .ready-bubble h2{font-size:1.15rem}
-  .ready-bubble p{font-size:0.78rem}
+  .ready-bubble h2{font-size:1.1rem;margin-bottom:5px}
+  .ready-bubble p{font-size:0.76rem;line-height:1.4}
   .bubble-tail{display:none}
 
-  /* Mascot wrap: smaller, centered, no overflow */
+  /* Mascot: centered, clipped to screen */
   .ready-mascot-wrap{
     width:100%;
     display:flex;
     justify-content:center;
+    overflow:hidden;
+    order:1;
   }
 
-  /* Student SVG: shrink to fit */
+  /* Student width controlled — no inline override */
   .student{
-    width:220px !important;
+    width:240px !important;
   }
 
-  /* Hide floating emoji items on mobile (they overflow) */
-  .float-item{display:none}
+  /* Hide floats — they overflow on narrow screens */
+  .float-item{display:none !important}
 
-  /* Glow smaller */
   .student-glow{
-    width:150px;height:150px;
+    width:160px;
+    height:160px;
   }
 
-  /* CTA area: tighter */
   .ready-cta{
-    margin-top:8px;
+    margin-top:6px;
     gap:6px;
+    width:100%;
+    padding:0 16px;
   }
 
-  /* Button smaller */
   .ready-btn{
-    font-size:1.1rem;
-    padding:14px 36px;
+    font-size:1.05rem;
+    padding:14px 28px;
+    width:100%;
+    justify-content:center;
   }
 
-  .ready-count{
-    font-size:0.8rem;
-  }
+  .ready-count{font-size:0.78rem}
 }
 
 </style>
@@ -832,7 +839,7 @@ a.btn-restart{text-decoration:none}
       <span class="float-item" style="top:50%;left:-70px;--fd:6s;--fdel:-1s;--fr0:3deg;--fr1:-9deg;font-size:22px">📚</span>
 
       <!-- THE REAL STUDENT SVG with GSAP -->
-      <div class="student" style="width:360px;margin:0 auto;position:relative;">
+      <div class="student" style="margin:0 auto;position:relative;">
         <svg id="student" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 385">
           <circle class="circle" style="display:none;" id="BG" opacity="0.25" cx="200.011" cy="208" r="157.657" fill="#4ECDC4"/>
           <circle class="circle" style="display:none;" id="dashed" opacity="0.2" fill="none" stroke="#FFFFFF" stroke-width="1.9028" stroke-miterlimit="10" stroke-dasharray="6.5548" cx="200.333" cy="208" r="176.666"/>
