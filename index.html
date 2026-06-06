@@ -253,6 +253,7 @@ body{
 .tc:nth-child(11) .tc-label{--tc-color:#FFD93D;--tc-bg:#fffbe8;--tc-shadow:#ccaa00;--tc-stamp:'🏙️';--tc-tilt:-1deg}
 .tc:nth-child(12) .tc-label{--tc-color:#7bed9f;--tc-bg:#f0fff5;--tc-shadow:#49c97c;--tc-stamp:'📍';--tc-tilt:1deg}
 .tc:nth-child(13) .tc-label{--tc-color:#ff4757;--tc-bg:#fff0f1;--tc-shadow:#cc1e2d;--tc-stamp:'🎨';--tc-tilt:-2deg}
+.tc:nth-child(14) .tc-label{--tc-color:#8B5CF6;--tc-bg:#f5f3ff;--tc-shadow:#6d28d9;--tc-stamp:'🏃';--tc-tilt:2deg}
 
 /* ── CTA AREA ── */
 .cta-area{display:flex;flex-direction:column;align-items:center;gap:14px;padding:36px 20px 0}
@@ -394,8 +395,8 @@ body{
     <div class="school-arabic">وحدة بغداد · S.S.Mouaraa</div>
     <p class="school-tagline">🎓 Jeux de Vocabulaire Français 🎓</p>
     <div class="badges-row">
-      <span class="hbadge">📚 13 Thèmes</span>
-      <span class="hbadge">🖼️ 500+ Images</span>
+      <span class="hbadge">📚 14 Thèmes</span>
+      <span class="hbadge">🖼️ 600+ Images</span>
       <span class="hbadge">🏆 Score en direct</span>
       <span class="hbadge">⭐ Pour les élèves</span>
     </div>
@@ -544,6 +545,15 @@ body{
       </label>
     </div>
 
+    <div class="tc" style="--i:13">
+      <input type="radio" id="th_verbes" name="theme" value="verbes">
+      <label class="tc-label" for="th_verbes">
+        <span class="tc-check">✓</span>
+        <div class="tc-img"><img src="11_verbes.png" alt="verbes" loading="lazy"></div>
+        <span class="tc-name">🏃 Les Verbes</span>
+      </label>
+    </div>
+
   </div>
 
   <div class="cta-area">
@@ -570,7 +580,8 @@ const labels = {
   adjectifs_qualificatifs:'Adjectifs ✨', famille:'Famille 👨‍👩‍👧', animaux:'Animaux 🐾',
   cuisine:'Cuisine 🍳', metiers_et_professions:'Métiers 💼', transport:'Transport 🚌',
   vetement:'Vêtements 👗', lieu:'Les Lieux 🏙️', 'préposition_de_lieu':'Prépositions 📍',
-  ecole_et_coleur:'École & Couleurs 🎨'
+  ecole_et_coleur:'École & Couleurs 🎨',
+  verbes:'Les Verbes 🏃'
 };
 
 // Sparkle on card select
